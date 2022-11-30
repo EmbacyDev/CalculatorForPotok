@@ -34,20 +34,20 @@ const myChart = new Chart(ctx, {
             {
                 label: ["Начальная сумма"],
                 data: [],
-                backgroundColor: "rgba(75,192,192,0.4)",
-                borderColor: "rgba(75,192,192,1)",
+                backgroundColor: "#10273D",
+                borderColor: "#10273D",
             },
             {
                 label: ["Пополнения"],
                 data: [],
-                backgroundColor: "rgba(157,40,255,0.4)",
-                borderColor: "rgba(157,40,255,1)",
+                backgroundColor: "#0D6579",
+                borderColor: "#0D6579",
             },
             {
                 label: ["Начисленные проценты"],
                 data: [],
-                backgroundColor: "rgba(192,75,75,0.4)",
-                borderColor: "rgb(236,7,33,1)",
+                backgroundColor: "#04CCD9",
+                borderColor: "#04CCD9",
             }
         ]
     },
@@ -250,3 +250,4 @@ totalBtn.onclick = function () {
 clearBtn.onclick = function () {
     clearResult(myChart)
 };
+document.addEventListener("DOMContentLoaded", getTotal);

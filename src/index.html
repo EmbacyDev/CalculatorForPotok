@@ -10,11 +10,17 @@
 <body>
 <section>
     <div class="container">
+        <div class="heading-w">
+            <h2 class="heading-calc">узнайте сумму вашего дохода</h2>
+        </div>
         <div class="main-w">
             <div class="form-w">
                 <form>
                     <div class="input-w">
-                        <label for="first_payment">Первоначальная сумма вложений:</label>
+                        <label class="number_input_label"
+                               for="first_payment">
+                            первоначальная сумма вложений
+                        </label>
                         <input
                                 id="first_payment"
                                 maxlength="8"
@@ -26,7 +32,8 @@
                                 min="1000"
                                 autofocus
                         />
-                        <label>
+                        <label for="first_payment_range"
+                               class="range_input_label">
                             <input id="first_payment_range"
                                    class="slider slider-progress"
                                    type="range"
@@ -37,29 +44,10 @@
                         </label>
                     </div>
                     <div class="input-w">
-                        <label for="monthly_payment">Сумма пополнения:</label>
-                        <input
-                                id="monthly_payment"
-                                maxlength="6"
-                                placeholder="Сумма пополнения"
-                                title="Введите cумму"
-                                class="input"
-                                type="number"
-                                max="1000000"
-                                min="0"
-                        />
-                        <label>
-                            <input id="monthly_payment_range"
-                                   class="slider slider-progress"
-                                   type="range"
-                                   max="1000000"
-                                   min="0"
-                                   step="1000"
-                                   value="50000"/>
+                        <label class="number_input_label"
+                               for="time">
+                            срок инвестирования
                         </label>
-                    </div>
-                    <div class="input-w">
-                        <label for="time">Срок инвестирования, мес:</label>
                         <input
                                 id="time"
                                 maxlength="3"
@@ -70,7 +58,8 @@
                                 max="120"
                                 min="1"
                         />
-                        <label>
+                        <label for="time_range"
+                               class="range_input_label">
                             <input id="time_range"
                                    class="slider slider-progress"
                                    type="range"
@@ -81,52 +70,91 @@
                         </label>
                     </div>
                     <div class="input-w">
-                        <label for="interest_rate">Ставка:</label>
+                        <label class="number_input_label"
+                               for="monthly_payment">
+                            сумма пополнений
+                        </label>
+                        <input
+                                id="monthly_payment"
+                                maxlength="6"
+                                placeholder="Сумма пополнения"
+                                title="Введите cумму"
+                                class="input"
+                                type="number"
+                                max="1000000"
+                                min="0"
+                        />
+                        <label for="monthly_payment_range"
+                               class="range_input_label">
+                            <input id="monthly_payment_range"
+                                   class="slider slider-progress"
+                                   type="range"
+                                   max="1000000"
+                                   min="0"
+                                   step="1000"
+                                   value="50000"/>
+                        </label>
+                    </div>
+                    <div class="input-w">
+                        <label class="number_input_label"
+                               for="interest_rate">
+                            стратегия
+                        </label>
                         <select name="percent"
                                 id="interest_rate"
                                 title="Выберите процент"
                         >
-                            <option value="0.16">16%</option>
-                            <option value="0.238">23,8%</option>
+                            <option value="0.16">оптимальная - 16%</option>
+                            <option value="0.239">оптимальная - 23,9%</option>
                         </select>
 
                     </div>
                 </form>
                 <div class="btn-w">
-                    <button id="total"
+                    <button class="btn-calc"
+                            id="total"
                             title="Показать результат"
                     >
-                        Посчитать
+                        рассчитать
                     </button>
-                    <button
+                    <button class="btn-calc"
                             id="clear"
                             title="Очистить результат"
                     >
-                        Очистить
+                        oчистить
                     </button>
                 </div>
-                <div>
-                    <p>Итоговый баланс
-                        <strong>
-                            <span id="total_sum">0.00</span>
-                        </strong>
-                    </p>
-                    <p>Всего пополнений
-                        <strong>
-                            <span id="total_payment">0.00</span>
-                        </strong>
-                    </p>
-                    <p>Всего процентов
-                        <strong>
-                            <span id="total_percent">0.00</span>
-                        </strong>
-                    </p>
+            </div>
+            <div class="total-block-w">
+                <div class="total-block">
+                    <div class="total-balance">
+                        <p class="number_input_label">итоговый баланс </p>
+                        <p class="total-result_sum"
+                           id="total_sum">
+                            0.00
+                        </p>
+                    </div>
+                    <div class="total-other">
+                        <div class="total-payment">
+                            <p class="number_input_label">всего пополнений </p>
+                            <p id="total_payment"
+                               class="total-result">
+                                0.00
+                            </p>
+                        </div>
+                        <div class="total-percent">
+                            <p class="number_input_label">всего процентов </p>
+                            <p id="total_percent"
+                               class="total-result">
+                                0.00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-w">
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
-            <div class="chart-w">
-                <canvas id="myChart"></canvas>
-            </div>
-
         </div>
         <div class="info">
             <table id=''>
