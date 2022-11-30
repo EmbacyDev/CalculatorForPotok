@@ -209,30 +209,40 @@ function getTotal() {
     }
 }
 
-for (let e of document.querySelectorAll('input[type="range"].slider-progress')) {
-    e.style.setProperty('--value', e.value);
-    e.style.setProperty('--min', e.min === '' ? '0' : e.min);
-    e.style.setProperty('--max', e.max === '' ? '100' : e.max);
-    e.addEventListener('input', () => e.style.setProperty('--value', e.value));
+function rangeLine() {
+    for (let e of document.querySelectorAll('input[type="range"].slider-progress')) {
+        e.style.setProperty('--value', e.value);
+        e.style.setProperty('--min', e.min === '' ? '0' : e.min);
+        e.style.setProperty('--max', e.max === '' ? '100' : e.max);
+        e.addEventListener('input', () => e.style.setProperty('--value', e.value));
+    }
 }
 
 const inputValue = function (event) {
     if (event.target.type === "range") {
+        rangeLine()
         let firstLetter = event.target.id.slice(0, 1)
         let numbInput = document.querySelectorAll('input[type=number]')
         numbInput.forEach(inputId => {
             if (firstLetter === inputId.id.slice(0, 1)) {
                 inputId.value = event.target.value
+                inputId.classList.remove('error')
             }
         })
     } else if (event.target.type === "number") {
-        let firstLetter = event.target.id.slice(0, 1)
-        let numbInput = document.querySelectorAll('input[type=range]')
-        numbInput.forEach(inputId => {
-            if (firstLetter === inputId.id.slice(0, 1)) {
-                inputId.value = event.target.value
-            }
-        })
+        rangeLine()
+        if (event.target.value === '' || Number(event.target.value) < Number(event.target.min) || Number(event.target.value) > Number(event.target.max)) {
+            event.target.classList.add('error')
+        } else {
+            event.target.classList.remove('error')
+            let firstLetter = event.target.id.slice(0, 1)
+            let numbInput = document.querySelectorAll('input[type=range]')
+            numbInput.forEach(inputId => {
+                if (firstLetter === inputId.id.slice(0, 1)) {
+                    inputId.value = event.target.value
+                }
+            })
+        }
     }
 };
 
@@ -240,6 +250,8 @@ const eventListener = function () {
     inputArr.forEach(input => {
         input.addEventListener('input', inputValue, false);
         input.addEventListener('change', inputValue, false);
+        input.addEventListener('focus', inputValue, false);
+        input.addEventListener('paste', inputValue, false);
     })
 }
 
@@ -250,4 +262,5 @@ totalBtn.onclick = function () {
 clearBtn.onclick = function () {
     clearResult(myChart)
 };
+rangeLine()
 document.addEventListener("DOMContentLoaded", getTotal);
