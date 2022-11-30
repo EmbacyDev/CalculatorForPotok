@@ -1,16 +1,23 @@
 import './style.css'
 import {Chart, registerables} from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-
 
 const totalBtn = document.getElementById('total')
 const clearBtn = document.getElementById('clear')
 
 const first_payment_input = document.getElementById('first_payment')
+const first_payment_range = document.getElementById('first_payment_range')
+
 const monthly_payment_input = document.getElementById('monthly_payment')
+const monthly_payment_range = document.getElementById('monthly_payment_range')
+
 const interest_rate_input = document.getElementById('interest_rate')
+
 const time_input = document.getElementById('time')
+const time_range = document.getElementById('time_range')
+
 const table = document.getElementById('table')
+
+const inputArr = [first_payment_input, first_payment_range, monthly_payment_input, monthly_payment_range, time_input, time_range]
 
 const total_sum = document.getElementById('total_sum')
 const total_payment = document.getElementById('total_payment')
@@ -44,7 +51,6 @@ const myChart = new Chart(ctx, {
             }
         ]
     },
-    // plugins: [ChartDataLabels],
     options: {
         scales: {
             x: {
@@ -94,7 +100,7 @@ function clearResult(chart) {
 
 function addTotals(t_sum, t_payment, t_percent) {
     total_sum.innerText = `${convertToRub(t_sum.at(-1).toFixed(2))}`
-    total_payment.innerText = `${convertToRub(t_payment.at(-1).toFixed(2))}`
+    total_payment.innerText = `${convertToRub((t_payment.at(-1) + t_sum[0]).toFixed(2))}`
     total_percent.innerText = `${convertToRub(t_percent.at(-1).toFixed(2))}`
 }
 
@@ -171,8 +177,8 @@ function getTotal() {
 
     if (validatorArr.every(even)) {
         console.log(validatorArr.every(even))
-        inputsArr.forEach(el =>{
-            el.classList.remove( 'error' )
+        inputsArr.forEach(el => {
+            el.classList.remove('error')
         })
         totalArr.push(first_payment)
 
@@ -191,18 +197,53 @@ function getTotal() {
             profitArr.push(profit)
             totalArr.push(total)
         }
+
         addData(totalArr, monthly_payment, profitArr, first_payment)
         addTotals(totalArr, monthlyPaymentArr, sumProfitArr)
     } else {
-        validatorArr.forEach((el, i) =>{
-            if(!el) {
-                inputsArr[i].classList.add( 'error' )
+        validatorArr.forEach((el, i) => {
+            if (!el) {
+                inputsArr[i].classList.add('error')
             }
         })
-        console.log(validatorArr)
     }
 }
 
+for (let e of document.querySelectorAll('input[type="range"].slider-progress')) {
+    e.style.setProperty('--value', e.value);
+    e.style.setProperty('--min', e.min === '' ? '0' : e.min);
+    e.style.setProperty('--max', e.max === '' ? '100' : e.max);
+    e.addEventListener('input', () => e.style.setProperty('--value', e.value));
+}
+
+const inputValue = function (event) {
+    if (event.target.type === "range") {
+        let firstLetter = event.target.id.slice(0, 1)
+        let numbInput = document.querySelectorAll('input[type=number]')
+        numbInput.forEach(inputId => {
+            if (firstLetter === inputId.id.slice(0, 1)) {
+                inputId.value = event.target.value
+            }
+        })
+    } else if (event.target.type === "number") {
+        let firstLetter = event.target.id.slice(0, 1)
+        let numbInput = document.querySelectorAll('input[type=range]')
+        numbInput.forEach(inputId => {
+            if (firstLetter === inputId.id.slice(0, 1)) {
+                inputId.value = event.target.value
+            }
+        })
+    }
+};
+
+const eventListener = function () {
+    inputArr.forEach(input => {
+        input.addEventListener('input', inputValue, false);
+        input.addEventListener('change', inputValue, false);
+    })
+}
+
+eventListener()
 totalBtn.onclick = function () {
     getTotal()
 };

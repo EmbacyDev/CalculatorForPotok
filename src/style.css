@@ -21,7 +21,7 @@ section {
     align-items: center;
 }
 
-.container{
+.container {
     padding: 20px 16px 20px 16px;
     display: flex;
     flex-direction: column;
@@ -32,18 +32,20 @@ input {
     width: 300px;
     height: 50px;
 }
-select{
+
+select {
     width: 300px;
     height: 50px;
 }
-.main-w{
+
+.main-w {
     display: flex;
     align-items: stretch;
     justify-content: center;
     flex-direction: row;
 }
 
-.form-w{
+.form-w {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -51,10 +53,11 @@ select{
     align-items: center;
 }
 
-.btn-w{
+.btn-w {
     margin: 15px;
 }
-button{
+
+button {
     padding: 2px;
     cursor: pointer;
 }
@@ -70,13 +73,154 @@ button{
     border-radius: 2px;
 }
 
-input{
+input {
     padding: 2px;
 }
 
-input:focus{
-    background-color: lightblue;
+input:focus {
+    background-color: transparent;
 }
+
+input[type=range].slider {
+    height: 1px;
+    -webkit-appearance: none;
+}
+
+/*progress support*/
+input[type=range].slider.slider-progress {
+    --range: calc(var(--max) - var(--min));
+    --ratio: calc((var(--value) - var(--min)) / var(--range));
+    --sx: calc(0.5 * 10px + var(--ratio) * (100% - 10px));
+}
+
+input[type=range].slider:focus {
+    outline: none;
+}
+
+/*webkit*/
+input[type=range].slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: #173B57;
+    border: none;
+    box-shadow: none;
+    margin-top: calc(1px * 0.5 - 10px * 0.5);
+    cursor: grab;
+}
+
+input[type=range].slider::-webkit-slider-runnable-track {
+    height: 1px;
+    border: none;
+    border-radius: 1px;
+    background: #FFFEFE00;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+input[type=range].slider::-webkit-slider-thumb:hover {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider::-webkit-slider-thumb:active {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider.slider-progress::-webkit-slider-runnable-track {
+    background: linear-gradient(#173B57,#173B57) 0/var(--sx) 100% no-repeat, #FFFEFE00;
+}
+
+/*mozilla*/
+input[type=range].slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: #173B57;
+    border: none;
+    box-shadow: none;
+    cursor: grab;
+}
+
+input[type=range].slider::-moz-range-track {
+    height: 1px;
+    border: none;
+    border-radius: 1px;
+    background: #FFFEFE00;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+input[type=range].slider::-moz-range-thumb:hover {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider::-moz-range-thumb:active {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider.slider-progress::-moz-range-track {
+    background: linear-gradient(#173B57,#173B57) 0/var(--sx) 100% no-repeat, #FFFEFE00;
+}
+
+/*ms*/
+input[type=range].slider::-ms-fill-upper {
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+input[type=range].slider::-ms-fill-lower {
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+input[type=range].slider::-ms-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: #173B57;
+    border: none;
+    box-shadow: none;
+    margin-top: 0;
+    box-sizing: border-box;
+    cursor: grab;
+}
+
+input[type=range].slider::-ms-track {
+    height: 1px;
+    border-radius: 1px;
+    background: #FFFEFE00;
+    border: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+input[type=range].slider::-ms-thumb:hover {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider::-ms-thumb:active {
+    background: #173B57;
+    cursor: grab;
+}
+
+input[type=range].slider.slider-progress::-ms-fill-lower {
+    height: 1px;
+    border-radius: 1px 0 0 1px;
+    background: #173B57;
+    border: none;
+    border-right-width: 0;
+    cursor: pointer;
+}
+
 
 #myChart {
     width: 950px;
@@ -95,7 +239,7 @@ input:focus{
     border: 1px solid aquamarine;
 }
 
-tr{
+tr {
     display: grid;
     grid-auto-columns: 1fr;
     grid-template-columns: repeat(7, auto);

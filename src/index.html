@@ -26,6 +26,15 @@
                                 min="1000"
                                 autofocus
                         />
+                        <label>
+                            <input id="first_payment_range"
+                                   class="slider slider-progress"
+                                   type="range"
+                                   min="1000"
+                                   max="10000000"
+                                   step="1000"
+                                   value="1000000"/>
+                        </label>
                     </div>
                     <div class="input-w">
                         <label for="monthly_payment">Сумма пополнения:</label>
@@ -39,6 +48,15 @@
                                 max="1000000"
                                 min="0"
                         />
+                        <label>
+                            <input id="monthly_payment_range"
+                                   class="slider slider-progress"
+                                   type="range"
+                                   max="1000000"
+                                   min="0"
+                                   step="1000"
+                                   value="50000"/>
+                        </label>
                     </div>
                     <div class="input-w">
                         <label for="time">Срок инвестирования, мес:</label>
@@ -52,6 +70,15 @@
                                 max="120"
                                 min="1"
                         />
+                        <label>
+                            <input id="time_range"
+                                   class="slider slider-progress"
+                                   type="range"
+                                   max="120"
+                                   min="1"
+                                   step="1"
+                                   value="60"/>
+                        </label>
                     </div>
                     <div class="input-w">
                         <label for="interest_rate">Ставка:</label>
