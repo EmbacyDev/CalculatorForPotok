@@ -133,7 +133,7 @@ input, select:focus {
 }
 
 input[type=range].slider {
-    min-width: 300px;
+    min-width: 337px;
     padding: 0 24px 0 24px;
     height: 1px;
     -webkit-appearance: none;
