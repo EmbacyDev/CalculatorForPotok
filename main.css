@@ -118,16 +118,12 @@ input::-webkit-inner-spin-button {
 }
 
 .input-w {
-    /*width: 300px;*/
-    /*height: 50px;*/
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: 28px;
     padding: 2px 0 4px 0;
-    /*border: 1px solid black;*/
-    /*border-radius: 2px;*/
     align-items: flex-start
 }
 
@@ -139,7 +135,7 @@ input, select:focus {
 input[type=range].slider {
     min-width: 300px;
     padding: 0 24px 0 24px;
-    height: 0.0625em;
+    height: 1px;
     -webkit-appearance: none;
 }
 
@@ -169,7 +165,7 @@ input[type=range].slider::-webkit-slider-thumb {
 }
 
 input[type=range].slider::-webkit-slider-runnable-track {
-    height: 0.0625em;
+    height: 1px;
     border: none;
     border-radius: 1px;
     background: #FFFEFE00;
@@ -205,7 +201,7 @@ input[type=range].slider::-moz-range-thumb {
 }
 
 input[type=range].slider::-moz-range-track {
-    height: 0.0625em;
+    height: 1px;
     border: none;
     border-radius: 1px;
     background: #FFFEFE00;
@@ -253,8 +249,7 @@ input[type=range].slider::-ms-thumb {
 }
 
 input[type=range].slider::-ms-track {
-    height: 0.0625em;
-    border-radius: 1px;
+    height: 1px;
     background: #FFFEFE00;
     border: none;
     box-shadow: none;
@@ -273,8 +268,7 @@ input[type=range].slider::-ms-thumb:active {
 }
 
 input[type=range].slider.slider-progress::-ms-fill-lower {
-    height: 0.0625em;
-    border-radius: 1px 0 0 1px;
+    height: 1px;
     background: #173B57;
     border: none;
     border-right-width: 0;
