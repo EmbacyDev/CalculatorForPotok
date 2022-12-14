@@ -276,22 +276,26 @@ const inputValue = function (event) {
             }
         })
     } else if (event.target.type === "number") {
-        if (event.target.value === '' ||
-            Number(event.target.value) < Number(event.target.min) ||
-            Number(event.target.value) > Number(event.target.max)) {
-            event.target.classList.add('error')
-            totalBtn.disabled = true
-        } else {
-            event.target.classList.remove('error')
-            totalBtn.disabled = false
-            let firstLetter = event.target.id.slice(0, 1)
-            let numbInput = document.querySelectorAll('input[type=range]')
-            numbInput.forEach(inputId => {
-                if (firstLetter === inputId.id.slice(0, 1)) {
+        let firstLetter = event.target.id.slice(0, 1)
+        let numbInput = document.querySelectorAll('input[type=range]')
+        numbInput.forEach(inputId => {
+            if (firstLetter === inputId.id.slice(0, 1)) {
+                if (event.target.value === '' ||
+                    Number(event.target.value) < Number(event.target.min) ||
+                    Number(event.target.value) > Number(event.target.max) || event.target.value === 0) {
+                    event.target.classList.add('error')
+                    totalBtn.disabled = true
+                    inputId.value = 0
+                    inputId.style.setProperty('--value', 0);
+                } else {
+                    event.target.classList.remove('error')
+                    totalBtn.disabled = false
                     inputId.value = event.target.value
+                    inputId.style.setProperty('--value', event.target.value);
                 }
-            })
-        }
+            }
+        })
+
     }
 };
 
