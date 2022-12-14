@@ -69,12 +69,10 @@ const myChart = new Chart(ctx, {
                     },
                     label: function(context) {
                         let label = context.dataset.label[0] || '';
-                        console.log(context.dataset.label[0])
                         if (label) {
                             label += ': ';
                         }
                         if (context.parsed.y !== null) {
-
                             label += convertToRub(context.parsed.y.toFixed());
                         }
                         return label;
