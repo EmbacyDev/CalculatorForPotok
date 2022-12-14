@@ -46,7 +46,7 @@ const myChart = new Chart(ctx, {
                 // borderColor: "#0D6579",
             },
             {
-                label: ["начисленные проценты"],
+                label: ["начисленные %"],
                 data: [],
                 backgroundColor: "#04CCD9",
                 // borderColor: "#04CCD9",
@@ -55,7 +55,35 @@ const myChart = new Chart(ctx, {
     },
     options: {
         responsive: true,
+        interaction: {
+            mode: 'point'
+        },
         plugins: {
+
+            tooltip: {
+                backgroundColor: "#FFFFFF",
+                titleColor: "#000000",
+                callbacks: {
+                    labelTextColor: function(context) {
+                        return '#000000';
+                    },
+                    label: function(context) {
+                        let label = context.dataset.label[0] || '';
+                        console.log(context.dataset.label[0])
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+
+                            label += convertToRub(context.parsed.y.toFixed());
+                        }
+                        return label;
+                    },
+                    title: function(tooltipItem, data) {
+                        return tooltipItem[0].label + ' мес.';
+                    }
+                }
+            },
             legend: {
                 display: true,
                 position: 'bottom',
