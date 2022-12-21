@@ -2,6 +2,7 @@
 import '../src/scss/main.scss'
 
 import {Chart, registerables} from 'chart.js';
+import IMask from "imask";
 
 const totalBtn = document.getElementById('total')
 const clearBtn = document.getElementById('clear')
@@ -63,11 +64,14 @@ const myChart = new Chart(ctx, {
             tooltip: {
                 backgroundColor: "#FFFFFF",
                 titleColor: "#000000",
+                displayColors: true,
+                usePointStyle: true,
                 callbacks: {
                     labelTextColor: function(context) {
                         return '#000000';
                     },
                     label: function(context) {
+                        // console.log(context)
                         let label = context.dataset.label[0] || '';
                         if (label) {
                             label += ': ';
@@ -75,11 +79,13 @@ const myChart = new Chart(ctx, {
                         if (context.parsed.y !== null) {
                             label += convertToRub(context.parsed.y.toFixed());
                         }
-                        return label;
+                        return  label;
                     },
-                    title: function(tooltipItem, data) {
+                    title: function(tooltipItem) {
+
                         return tooltipItem[0].label + ' мес.';
                     }
+
                 }
             },
             legend: {
@@ -187,6 +193,17 @@ function convertToRub(n) {
     ).format(n)
 }
 
+
+function focusOn(n) {
+  return n.replace(/\B(?=(?:\d{3})+(?!\d))/g, ' ');
+}
+
+function focusOff(n) {
+    return n.replace(/\s/g, '')
+}
+
+
+
 function addData(data, mp, pr, fp) {
 
     let sum = 0
@@ -229,9 +246,9 @@ function validator(num, min, max) {
 
 function getTotal() {
     clearResult(myChart)
-    let first_payment = Number(first_payment_input.value)
-    let monthly_payment = Number(monthly_payment_input.value)
-    let interest_rate = Number(interest_rate_input.value)
+    let first_payment = Number(focusOff(first_payment_input.value))
+    let monthly_payment = Number(focusOff(monthly_payment_input.value))
+    let interest_rate = Number(focusOff(interest_rate_input.value))
     let time = Number(time_input.value)
     let inputsArr = [first_payment_input, monthly_payment_input, time_input]
     let validatorArr = [
@@ -291,9 +308,10 @@ function rangeLine() {
 
 const inputValue = function (event) {
     rangeLine()
+
     if (event.target.type === "range") {
         let firstLetter = event.target.id.slice(0, 1)
-        let numbInput = document.querySelectorAll('input[type=number]')
+        let numbInput = document.querySelectorAll('.input_calc')
         numbInput.forEach(inputId => {
             if (firstLetter === inputId.id.slice(0, 1)) {
                 inputId.value = event.target.value
@@ -301,14 +319,15 @@ const inputValue = function (event) {
                 totalBtn.disabled = false
             }
         })
-    } else if (event.target.type === "number") {
+    } else if (event.target.type === "number" || event.target.type === "text") {
         let firstLetter = event.target.id.slice(0, 1)
         let numbInput = document.querySelectorAll('input[type=range]')
         numbInput.forEach(inputId => {
             if (firstLetter === inputId.id.slice(0, 1)) {
                 if (event.target.value === '' ||
                     Number(event.target.value) < Number(event.target.min) ||
-                    Number(event.target.value) > Number(event.target.max) || event.target.value === 0) {
+                    Number(event.target.value) > Number(event.target.max) ||
+                    event.target.value === 0) {
                     event.target.classList.add('error')
                     totalBtn.disabled = true
                     inputId.value = 0
@@ -316,8 +335,8 @@ const inputValue = function (event) {
                 } else {
                     event.target.classList.remove('error')
                     totalBtn.disabled = false
-                    inputId.value = event.target.value
-                    inputId.style.setProperty('--value', event.target.value);
+                    inputId.value = focusOff(event.target.value)
+                    inputId.style.setProperty('--value', focusOff(event.target.value));
                 }
             }
         })
@@ -331,8 +350,34 @@ const eventListener = function () {
         input.addEventListener('change', inputValue, false);
         input.addEventListener('focus', inputValue, false);
         input.addEventListener('paste', inputValue, false);
+        input.addEventListener('change', function (){
+            first_payment_mask .updateValue()
+            first_payment_mask .updateControl();
+            monthly_payment_mask .updateValue()
+            monthly_payment_mask .updateControl();
+        });
     })
 }
+
+const first_payment_mask = IMask(
+    document.getElementById('first_payment'),
+    {
+        mask: Number,
+        min: 1000,
+        max: 10000000,
+        thousandsSeparator: ' '
+    });
+
+
+const monthly_payment_mask = IMask(
+    document.getElementById('monthly_payment'),
+    {
+        mask: Number,
+        min: 0,
+        max: 1000000,
+        thousandsSeparator: ' '
+    });
+
 
 eventListener()
 totalBtn.onclick = function () {

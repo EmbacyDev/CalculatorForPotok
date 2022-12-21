@@ -23,11 +23,10 @@
                         </label>
                         <input
                                 id="first_payment"
-                                maxlength="8"
                                 placeholder="первоначальная сумма вложений"
                                 title="min:1000, max:10000000"
-                                class="input"
-                                type="number"
+                                class="input_calc"
+                                type="text"
                                 max="10000000"
                                 min="1000"
                                 autofocus
@@ -37,7 +36,7 @@
                             <input id="first_payment_range"
                                    class="slider slider-progress"
                                    type="range"
-                                   min="5000"
+                                   min="1000"
                                    max="10000000"
                                    step="1000"
                                    value="1000000"/>
@@ -53,7 +52,7 @@
                                 maxlength="3"
                                 placeholder="cрок инвестирования, мес"
                                 title="min:1, max:120"
-                                class="input"
+                                class="input_calc"
                                 type="number"
                                 max="120"
                                 min="1"
@@ -76,13 +75,11 @@
                         </label>
                         <input
                                 id="monthly_payment"
-                                maxlength="6"
                                 placeholder="cумма пополнения"
                                 title="min:0, max:1000000"
-                                class="input"
-                                type="number"
-                                max="1000000"
-                                min="0"
+                                class="input_calc"
+                                type="text"
+
                         />
                         <label for="monthly_payment_range"
                                class="range_input_label">
@@ -91,7 +88,7 @@
                                    type="range"
                                    max="1000000"
                                    min="0"
-                                   step="5000"
+                                   step="1000"
                                    value="50000"/>
                         </label>
                     </div>
